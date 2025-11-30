@@ -18,4 +18,13 @@ endif()
 # Здесь добавьте исполняемый файл проекта
 # Замените src/main.cpp на путь к вашему главному файлу
 add_executable(${PROJECT_NAME} src/main.cpp
-        src/CommandLineParser.cpp)
+        src/utils/CommandLineParser/CommandLineParser.cpp
+        src/basic_strategy/History/History.cpp
+        src/configs/AlwaysCooperate/AlwaysCooperate.cpp
+        src/configs/AlwaysDefect/AlwaysDefect.cpp
+        src/utils/GameMatrix/GameMatrix.cpp
+        src/configs/RandomChoice/RandomChoice.cpp
+        src/configs/ToughTitForTat/ToughTitForTat.cpp
+        src/configs/SoftTitForTat/SoftTitForTat.cpp
+        src/configs/GoByMajority/GoByMajority.cpp
+)
