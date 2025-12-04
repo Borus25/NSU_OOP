@@ -18,13 +18,15 @@ endif()
 # Здесь добавьте исполняемый файл проекта
 # Замените src/main.cpp на путь к вашему главному файлу
 add_executable(${PROJECT_NAME} src/main.cpp
-        src/utils/CommandLineParser/CommandLineParser.cpp
-        src/basic_strategy/History/History.cpp
-        src/configs/AlwaysCooperate/AlwaysCooperate.cpp
-        src/configs/AlwaysDefect/AlwaysDefect.cpp
-        src/utils/GameMatrix/GameMatrix.cpp
-        src/configs/RandomChoice/RandomChoice.cpp
-        src/configs/ToughTitForTat/ToughTitForTat.cpp
-        src/configs/SoftTitForTat/SoftTitForTat.cpp
-        src/configs/GoByMajority/GoByMajority.cpp
+        src/PrisonerDilemma/utils/CommandLineParser/CommandLineParser.cpp
+        src/PrisonerDilemma/strategies/basic_strategy/History/History.cpp
+        src/PrisonerDilemma/strategies/config/AlwaysCooperate/AlwaysCooperate.cpp
+        src/PrisonerDilemma/strategies/config/AlwaysDefect/AlwaysDefect.cpp
+        src/PrisonerDilemma/GameMatrix/GameMatrix.cpp
+        src/PrisonerDilemma/strategies/config/RandomChoice/RandomChoice.cpp
+        src/PrisonerDilemma/strategies/config/ToughTitForTat/ToughTitForTat.cpp
+        src/PrisonerDilemma/strategies/config/SoftTitForTat/SoftTitForTat.cpp
+        src/PrisonerDilemma/strategies/config/GoByMajority/GoByMajority.cpp
+        src/PrisonerDilemma/Player/Player.cpp
+        src/PrisonerDilemma/GameClass/Game.cpp
 )
