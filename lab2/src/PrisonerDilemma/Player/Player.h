@@ -27,7 +27,8 @@ public:
 
     void addScore(int points);
 
-    [[nodiscard]] int getTotalScore() const;
+    // Случай 15: используем long long для защиты от переполнения
+    [[nodiscard]] long long getTotalScore() const;
 
     [[nodiscard]] const History& getHistory() const;
 
@@ -38,5 +39,5 @@ public:
 private:
     std::unique_ptr<Strategy> strategy_;
     History history_;
-    int totalScore_;
+    long long totalScore_;  // Случай 15: защита от переполнения
 };

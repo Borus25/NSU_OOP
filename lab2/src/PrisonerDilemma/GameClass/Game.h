@@ -38,10 +38,11 @@ public:
     // Выводит итоговые результаты игры
     void displayGameResult() const;
     
-    // Возвращает счета всех игроков
-    [[nodiscard]] std::vector<int> getScores() const;
-    
+    // Возвращает счета всех игроков (используем long long для защиты от переполнения)
+    [[nodiscard]] std::vector<long long> getScores() const;
+
     // Возвращает победителя (индекс 0, 1 или 2)
+    // Случай 25: при ничьей (одинаковых счетах) возвращает индекс первого победителя
     [[nodiscard]] int getWinner() const;
     
     // Сбрасывает игру (очищает истории и счета)

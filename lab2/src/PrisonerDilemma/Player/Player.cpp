@@ -1,10 +1,16 @@
 #include "Player.h"
+#include <stdexcept>
 
 class Strategy;
 
 Player::Player(std::unique_ptr<Strategy> strategy)
     : strategy_(std::move(strategy)),
-      totalScore_(0) {}
+      totalScore_(0) {
+    // Случай 16: Player без стратегии (nullptr)
+    if (!strategy_) {
+        throw std::invalid_argument("Strategy cannot be null");
+    }
+}
 
 Choice Player::makeChoice(const History& opponent1History,
                          const History& opponent2History) {
@@ -16,10 +22,15 @@ void Player::updateHistory(Choice myChoice) {
 }
 
 void Player::addScore(int points) {
+    // Случай 14: отрицательные очки - добавляем проверку
+    if (points < 0) {
+        throw std::invalid_argument("Score points cannot be negative");
+    }
+    // Случай 15: целочисленное переполнение (используем long long в заголовке)
     totalScore_ += points;
 }
 
-int Player::getTotalScore() const {
+long long Player::getTotalScore() const {
     return totalScore_;
 }
 

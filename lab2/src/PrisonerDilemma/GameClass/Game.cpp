@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <algorithm>
+#include <stdexcept>
 
 Game::Game(Player& player1, Player& player2, Player& player3, const std::string& mode)
     : players_{&player1, &player2, &player3},
@@ -8,7 +9,12 @@ Game::Game(Player& player1, Player& player2, Player& player3, const std::string&
                  player2.getStrategyName(),
                  player3.getStrategyName()),
       mode_(mode),
-      currentRound_(0) {}
+      currentRound_(0) {
+    // Случай 26: Game с одинаковыми Player объектами
+    if (&player1 == &player2 || &player2 == &player3 || &player1 == &player3) {
+        throw std::invalid_argument("All players must be different objects");
+    }
+}
 
 void Game::playRound() {
     currentRound_++;
@@ -76,8 +82,13 @@ void Game::playDetailedMode() {
     std::string input;
     while (true) {
         std::cout << "Press Enter for round " << (currentRound_ + 1) << "...";
-        std::getline(std::cin, input);
-        
+
+        // Случай 24: обработка EOF
+        if (!std::getline(std::cin, input)) {
+            std::cout << "\nEnd of input (EOF). Game terminated." << std::endl;
+            break;
+        }
+
         if (input == "quit" || input == "q") {
             std::cout << "\nGame terminated by user." << std::endl;
             break;
@@ -125,7 +136,7 @@ void Game::displayGameResult() const {
     std::cout << "\nWinner: " << players_[winner]->getStrategyName() << "!" << std::endl;
 }
 
-std::vector<int> Game::getScores() const {
+std::vector<long long> Game::getScores() const {
     return {
         players_[0]->getTotalScore(),
         players_[1]->getTotalScore(),
@@ -134,7 +145,10 @@ std::vector<int> Game::getScores() const {
 }
 
 int Game::getWinner() const {
-    std::vector<int> scores = getScores();
+    // Случай 25: getWinner() при нескольких победителях (ничья)
+    // Возвращает индекс ПЕРВОГО игрока с максимальным счетом
+    // Например, если все имеют одинаковый счет, вернет 0
+    std::vector<long long> scores = getScores();
     auto maxIt = std::max_element(scores.begin(), scores.end());
     return std::distance(scores.begin(), maxIt);
 }

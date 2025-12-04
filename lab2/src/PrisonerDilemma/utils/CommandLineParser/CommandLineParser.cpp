@@ -34,6 +34,11 @@ std::map<std::string, std::string> CommandLineParser::parse() {
                 key = current.substr(0, equalsPos);
                 key = cleanKey(key);
                 value = current.substr(equalsPos + 1);
+
+                // Случай 8: ключ с пустым значением
+                if (value.empty()) {
+                    value = "true";  // Используем значение по умолчанию
+                }
             }
             else if (i + 1 < argc_ && !isKey(argv_[i + 1])) {
                 value = argv_[i + 1];
