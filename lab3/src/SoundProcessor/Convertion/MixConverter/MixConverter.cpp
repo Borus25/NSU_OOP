@@ -2,6 +2,7 @@
 #include "../../WorkingWithAudio/AudioStream.h"
 #include "../../../Exceptions.h"
 #include <stdexcept>
+#include <utility>
 
 MixConverter::MixConverter()
     : additionalStream_(nullptr), insertPosition_(0)
@@ -43,8 +44,7 @@ void MixConverter::setParameters(const std::vector<std::string>& params) {
     if (!params.empty()) {
         try {
             insertPosition_ = std::stoi(params[0]);
-        } catch (const std::exception&) {
-        }
+        } catch (const std::exception&) { }
     }
 }
 
@@ -63,7 +63,7 @@ std::string MixConverter::getSyntax() const {
 }
 
 void MixConverter::setAdditionalStream(std::shared_ptr<AudioStream> stream) {
-    additionalStream_ = stream;
+    additionalStream_ = std::move(stream);
 }
 
 void MixConverter::setInsertPosition(int seconds) {

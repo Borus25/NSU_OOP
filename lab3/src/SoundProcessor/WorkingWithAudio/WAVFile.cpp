@@ -38,21 +38,33 @@ void WAVFile::open(const std::string& filename) {
 void WAVFile::createOutput(const std::string& filename) {
     filename_ = filename;
 
-    outputFile_ = std::make_shared<std::ofstream>(filename, std::ios::binary);
+    outputFile_ = std::make_shared<std::ofstream>(
+        filename,
+        std::ios::binary | std::ios::out | std::ios::trunc
+    );
 
     if (!outputFile_ || !outputFile_->is_open()) {
         throw FileException("Cannot open file for writing: " + filename);
+    }
+
+    if (!outputFile_->good()) {
+        throw FileException("Output file is in bad state: " + filename);
     }
 
     header_.createDefaultHeader(0);
     header_.writeHeader(*outputFile_, 0);
 
     dataStartPosition_ = outputFile_->tellp();
-    stream_ = std::make_shared<AudioStream>(outputFile_);
+
+    std::shared_ptr<std::ostream> outputStream =
+        std::static_pointer_cast<std::ostream>(outputFile_);
+
+    stream_ = std::make_shared<AudioStream>(outputStream);
 
     isInput_ = false;
     isOutput_ = true;
 }
+
 
 void WAVFile::close() {
     if (isOutput_ && outputFile_ && outputFile_->is_open()) {
@@ -115,5 +127,6 @@ void WAVFile::finalizeOutput() {
     outputFile_->seekp(0);
     header_.createDefaultHeader(dataSize);
     header_.writeHeader(*outputFile_, dataSize);
+    outputFile_->flush();
 }
 

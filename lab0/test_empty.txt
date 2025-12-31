@@ -1,3 +1,0 @@
-Numbers: 123 456 789
-Special: cd /home/borus/CLionProjects/NSU_OOP/lab0 && ./cmake-build-debug/lab0 test_large.txt output_large.csv && head -20 output_large.csvcd /home/borus/CLionProjects/NSU_OOP/lab0 && ./cmake-build-debug/lab0 test_large.txt output_large.csv && head -20 output_large.csv? @@@###
-Mixed: A1 B2 C3

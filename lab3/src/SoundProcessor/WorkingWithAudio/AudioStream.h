@@ -8,9 +8,11 @@
 
 class AudioStream {
 public:
+    // для входных аудио потоков
     AudioStream(std::shared_ptr<std::istream> input, uint32_t dataSize,
                 std::streampos startPosition);
 
+    // для выходных аудио потоков
     explicit AudioStream(std::shared_ptr<std::ostream> output);
 
     ~AudioStream() = default;

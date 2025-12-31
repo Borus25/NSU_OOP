@@ -13,22 +13,22 @@ public:
     void writeHeader(std::ostream& output, uint32_t dataSize);
     void validate() const;
 
-    uint16_t getAudioFormat() const { return audioFormat_; }
+    [[nodiscard]] uint16_t getAudioFormat() const { return audioFormat_; }
 
-    uint16_t getNumChannels() const { return numChannels_; }
+    [[nodiscard]] uint16_t getNumChannels() const { return numChannels_; }
 
-    uint32_t getSampleRate() const { return sampleRate_; }
+    [[nodiscard]] uint32_t getSampleRate() const { return sampleRate_; }
 
-    uint32_t getByteRate() const { return byteRate_; }
+    [[nodiscard]] uint32_t getByteRate() const { return byteRate_; }
 
-    uint16_t getBlockAlign() const { return blockAlign_; }
+    [[nodiscard]] uint16_t getBlockAlign() const { return blockAlign_; }
 
-    uint16_t getBitsPerSample() const { return bitsPerSample_; }
+    [[nodiscard]] uint16_t getBitsPerSample() const { return bitsPerSample_; }
 
-    uint32_t getDataSize() const { return dataSize_; }
+    [[nodiscard]] uint32_t getDataSize() const { return dataSize_; }
 
 
-    double getDuration() const;
+    [[nodiscard]] double getDuration() const;
 
     void createDefaultHeader(uint32_t dataSize);
 

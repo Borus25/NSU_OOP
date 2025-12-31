@@ -1,5 +1,0 @@
-Hello world! Hello everyone.
-This is a test file. This program counts words.
-Hello, hello, HELLO! World and world again.
-Testing, testing, one two three.
-

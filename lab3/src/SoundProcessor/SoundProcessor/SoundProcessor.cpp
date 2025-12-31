@@ -2,7 +2,6 @@
 #include "../../Exceptions.h"
 #include "../Convertion/MixConverter/MixConverter.h"
 #include <iostream>
-#include <fstream>
 #include <memory>
 #include <sstream>
 
@@ -148,7 +147,7 @@ void SoundProcessor::process() {
     saveOutput(outputFilePath_, currentStream);
 }
 
-void SoundProcessor::saveOutput(const std::string& outputFile, std::shared_ptr<AudioStream> inputStream) {
+void SoundProcessor::saveOutput(const std::string& outputFile, const std::shared_ptr<AudioStream>& inputStream) {
     outputFile_ = std::make_shared<WAVFile>();
     outputFile_->createOutput(outputFile);
 
@@ -245,6 +244,9 @@ std::shared_ptr<AudioStream> SoundProcessor::applyConverters(std::shared_ptr<Aud
                         mixConverter->setAdditionalStream(additionalStream);
                     }
                     continue;
+                } else {
+                    // Для других конвертеров пропускаем stream references
+                    continue;
                 }
             }
             processedParams.push_back(param);
@@ -252,18 +254,17 @@ std::shared_ptr<AudioStream> SoundProcessor::applyConverters(std::shared_ptr<Aud
 
         converter->setParameters(processedParams);
 
-        auto outputBuffer = std::make_shared<std::stringstream>(std::ios::binary);
+        // ВАЖНО: stringstream нужен в режиме read+write для использования как входной и выходной поток
+        auto outputBuffer = std::make_shared<std::stringstream>(std::ios::binary | std::ios::in | std::ios::out);
         std::shared_ptr<std::ostream> outputPtr = outputBuffer;
 
         AudioStream outStream(outputPtr);
         applyConverter(converter, *currentStream, outStream);
 
         uint32_t writtenSamples = outStream.getWrittenSamples();
-
         outputBuffer->seekg(0);
 
         // Для следующего конвертера создаем входной поток из буфера
-        // Преобразуем ostream в istream, используя stringstream
         auto inputBuffer = std::dynamic_pointer_cast<std::stringstream>(outputBuffer);
         if (inputBuffer) {
             currentStream = std::make_shared<AudioStream>(
@@ -274,7 +275,7 @@ std::shared_ptr<AudioStream> SoundProcessor::applyConverters(std::shared_ptr<Aud
     return currentStream;
 }
 
-void SoundProcessor::applyConverter(std::shared_ptr<Converter> converter,
+void SoundProcessor::applyConverter(const std::shared_ptr<Converter>& converter,
                                    AudioStream& input, AudioStream& output) {
     converter->process(input, output);
 }

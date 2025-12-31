@@ -72,7 +72,6 @@ void EchoConverter::setRepeatCount(int count) {
 }
 
 void EchoConverter::initializeDelayBuffer(uint32_t totalSamples) {
-    int delaySamples = (delayMs_ * SAMPLE_RATE) / 1000;
     delayBuffer_.assign(totalSamples, 0);
 }
 

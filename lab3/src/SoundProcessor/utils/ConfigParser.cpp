@@ -4,9 +4,7 @@
 #include <sstream>
 #include <algorithm>
 
-ConfigParser::ConfigParser() : currentLine_(0)
-{
-}
+ConfigParser::ConfigParser() : currentLine_(0) {}
 
 void ConfigParser::parse(const std::string& filename) {
     currentFile_ = filename;
@@ -28,9 +26,9 @@ void ConfigParser::parse(const std::string& filename) {
             continue;
         }
 
-        auto cmd = parseLine(line);
-        if (cmd) {
-            commands_.push_back(*cmd);
+        ConverterCommand cmd = parseLine(line);
+        if (cmd.getName().data()) {
+            commands_.push_back(cmd);
         }
     }
 
@@ -61,17 +59,17 @@ void ConfigParser::clear() {
     currentFile_.clear();
 }
 
-std::unique_ptr<ConverterCommand> ConfigParser::parseLine(const std::string& line) {
+ConverterCommand ConfigParser::parseLine(const std::string& line) {
     std::vector<std::string> tokens = tokenize(line);
 
     if (tokens.empty()) {
-        return nullptr;
+        return {};
     }
 
     std::string converterName = tokens[0];
     std::vector<std::string> params(tokens.begin() + 1, tokens.end());
 
-    return std::make_unique<ConverterCommand>(converterName, params);
+    return {converterName, params};
 }
 
 bool ConfigParser::isComment(const std::string& line) const {

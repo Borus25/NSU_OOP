@@ -63,7 +63,7 @@ public:
      * @param inputStream - входной поток с данными для записи
      * @throws FileException если файл не может быть создан
      */
-    void saveOutput(const std::string& outputFile, std::shared_ptr<AudioStream> inputStream);
+    void saveOutput(const std::string& outputFile, const std::shared_ptr<AudioStream>& inputStream);
 
     /**
      * Вывод справки об использовании программы
@@ -112,7 +112,7 @@ private:
      * @param input - входной аудио поток
      * @param output - выходной аудио поток
      */
-    void applyConverter(std::shared_ptr<Converter> converter,
+    void applyConverter(const std::shared_ptr<Converter>& converter,
                        AudioStream& input, AudioStream& output);
 };
 

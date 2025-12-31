@@ -1,11 +1,10 @@
 #include "AudioStream.h"
 #include "../../Exceptions.h"
-#include <cstring>
-#include <limits>
+#include <utility>
 
 AudioStream::AudioStream(std::shared_ptr<std::istream> input, uint32_t dataSize,
                          std::streampos startPosition)
-    : inputStream_(input),
+    : inputStream_(std::move(input)),
       dataSize_(dataSize),
       startPosition_(startPosition),
       totalSamples_(dataSize / BYTES_PER_SAMPLE),
@@ -19,15 +18,17 @@ AudioStream::AudioStream(std::shared_ptr<std::istream> input, uint32_t dataSize,
 }
 
 AudioStream::AudioStream(std::shared_ptr<std::ostream> output)
-    : outputStream_(output),
+    : outputStream_(std::move(output)),
       dataSize_(0),
       totalSamples_(0),
       currentSampleIndex_(0),
       writtenSamples_(0),
-      isInputMode_(false)
-{
-    if (!outputStream_ || !outputStream_->good()) {
-        throw AudioStreamException("Invalid output stream");
+      isInputMode_(false) {
+    if (!outputStream_) {
+        throw AudioStreamException("Null output stream pointer");
+    }
+    if (!outputStream_->good()) {
+        throw AudioStreamException("Invalid output stream state");
     }
 }
 
@@ -62,6 +63,10 @@ int16_t AudioStream::readSample() {
 void AudioStream::writeSample(int16_t sample) {
     if (isInputMode_) {
         throw AudioStreamException("Cannot write to input stream");
+    }
+
+    if (!outputStream_) {
+        throw AudioStreamException("Output stream is null");
     }
 
     char buffer[BYTES_PER_SAMPLE];

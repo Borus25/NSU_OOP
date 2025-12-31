@@ -45,7 +45,7 @@ private:
     std::string currentFile_;
     int currentLine_;
 
-    std::unique_ptr<ConverterCommand> parseLine(const std::string& line);
+    ConverterCommand parseLine(const std::string& line);
     bool isComment(const std::string& line) const;
     std::string trim(const std::string& str) const;
     std::vector<std::string> tokenize(const std::string& line) const;
