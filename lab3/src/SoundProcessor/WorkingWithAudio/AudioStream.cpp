@@ -1,5 +1,5 @@
 #include "AudioStream.h"
-#include "../../Exceptions.h"
+#include "../utils/Exceptions.h"
 #include <utility>
 
 AudioStream::AudioStream(std::shared_ptr<std::istream> input, uint32_t dataSize,

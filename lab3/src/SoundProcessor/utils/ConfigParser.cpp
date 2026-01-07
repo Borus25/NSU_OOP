@@ -1,5 +1,5 @@
 #include "ConfigParser.h"
-#include "../../Exceptions.h"
+#include "../utils/Exceptions.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>

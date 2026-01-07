@@ -3,7 +3,7 @@
 #include "../MixConverter/MixConverter.h"
 #include "../VolumeConverter/VolumeConverter.h"
 #include "../EchoConverter/EchoConverter.h"
-#include "../../../Exceptions.h"
+#include "../../utils/Exceptions.h"
 
 ConverterFactory& ConverterFactory::getInstance() {
     static ConverterFactory instance;

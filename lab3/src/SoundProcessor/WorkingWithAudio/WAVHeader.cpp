@@ -1,5 +1,5 @@
 #include "WAVHeader.h"
-#include "../../Exceptions.h"
+#include "../utils/Exceptions.h"
 #include <cstring>
 
 WAVHeader::WAVHeader()

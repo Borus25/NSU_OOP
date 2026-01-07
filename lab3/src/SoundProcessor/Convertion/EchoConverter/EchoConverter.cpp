@@ -1,7 +1,6 @@
 #include "EchoConverter.h"
 #include "../../WorkingWithAudio/AudioStream.h"
-#include "../../../Exceptions.h"
-#include <stdexcept>
+#include "../../utils/Exceptions.h"
 #include <limits>
 
 EchoConverter::EchoConverter()

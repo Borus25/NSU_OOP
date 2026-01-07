@@ -26,7 +26,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
     src/SoundProcessor/Convertion/Factory/ConverterFactory.cpp
     src/SoundProcessor/utils/ConfigParser.cpp
     src/SoundProcessor/utils/ConverterCommand.cpp
-    src/SoundProcessor/SoundProcessor/SoundProcessor.cpp
+    src/SoundProcessor/SoundProcessor.cpp
 )
 
 

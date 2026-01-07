@@ -1,6 +1,6 @@
 #include "MuteConverter.h"
 #include "../../WorkingWithAudio/AudioStream.h"
-#include "../../../Exceptions.h"
+#include "../../utils/Exceptions.h"
 #include <stdexcept>
 
 MuteConverter::MuteConverter()

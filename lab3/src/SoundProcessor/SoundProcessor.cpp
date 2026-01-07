@@ -1,6 +1,6 @@
 #include "SoundProcessor.h"
-#include "../../Exceptions.h"
-#include "../Convertion/MixConverter/MixConverter.h"
+#include "utils/Exceptions.h"
+#include "Convertion/MixConverter/MixConverter.h"
 #include <iostream>
 #include <memory>
 #include <sstream>

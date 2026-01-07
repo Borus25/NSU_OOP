@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../WorkingWithAudio/WAVFile.h"
-#include "../Convertion/BasicConverter/Converter.h"
-#include "../utils/ConfigParser.h"
-#include "../Convertion/Factory/ConverterFactory.h"
+#include "WorkingWithAudio/WAVFile.h"
+#include "Convertion/BasicConverter/Converter.h"
+#include "utils/ConfigParser.h"
+#include "Convertion/Factory/ConverterFactory.h"
 #include <string>
 #include <vector>
 #include <memory>

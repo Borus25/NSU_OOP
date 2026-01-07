@@ -1,5 +1,5 @@
 #include "WAVFile.h"
-#include "../../Exceptions.h"
+#include "../utils/Exceptions.h"
 #include <memory>
 #include <iostream>
 

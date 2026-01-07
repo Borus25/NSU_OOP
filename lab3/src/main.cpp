@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SoundProcessor/SoundProcessor/SoundProcessor.h"
+#include "SoundProcessor/SoundProcessor.h"
 
 int main(int argc, char* argv[]) {
     try {
