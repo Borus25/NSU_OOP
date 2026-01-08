@@ -1,7 +1,7 @@
 #include <iostream>
 #include <tuple>
 
-namespace detail {
+namespace tuplePrinter {
 
     template <typename Tuple, std::size_t Index, std::size_t Size>
     struct TuplePrinter {
@@ -27,7 +27,7 @@ namespace detail {
 template<typename Ch, typename Tr, typename... Args>
 auto operator<<(std::basic_ostream<Ch, Tr>& os, std::tuple<Args...> const& t) -> std::basic_ostream<Ch, Tr>& {
     os << "(";
-    detail::TuplePrinter<decltype(t), 0, sizeof...(Args)>::print(os, t);
+    tuplePrinter::TuplePrinter<decltype(t), 0, sizeof...(Args)>::print(os, t);
     os << ")";
     return os;
 }
