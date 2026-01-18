@@ -1,20 +1,17 @@
-
 #pragma once
-
-#include <iostream>
-#include "CSVIterator.h" // Подключаем итератор
+#include "CSVIterator.h"
 
 template<typename... Args>
 class CSVParser {
 public:
-    // Чтобы пользователю было удобно писать CSVParser<...>::iterator
     using iterator = CSVIterator<Args...>;
 
-    CSVParser(std::istream& file, size_t skip_count = 0)
-        : m_file(file), m_skip_count(skip_count) {}
+    // --- (2) Конфигурация через конструктор ---
+    CSVParser(std::istream& file, size_t skip_count = 0, char delimiter = ',', char quote = '"')
+        : m_file(file), m_skip_count(skip_count), m_delimiter(delimiter), m_quote(quote) {}
 
     iterator begin() {
-        return iterator(m_file, m_skip_count);
+        return iterator(m_file, m_skip_count, m_delimiter, m_quote);
     }
 
     iterator end() {
@@ -24,4 +21,6 @@ public:
 private:
     std::istream& m_file;
     size_t m_skip_count;
+    char m_delimiter;
+    char m_quote;
 };
