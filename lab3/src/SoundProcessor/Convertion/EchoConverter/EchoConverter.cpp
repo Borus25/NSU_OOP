@@ -90,7 +90,6 @@ int16_t EchoConverter::applyEcho(int16_t inputSample, size_t sampleIndex) {
     int delaySamples = (delayMs_ * SAMPLE_RATE) / 1000;
     int32_t output = static_cast<int32_t>(inputSample);
 
-    // Добавляем эхо повторения
     for (int r = 0; r < repeatCount_; ++r) {
         size_t echoPos = sampleIndex + delaySamples * (r + 1);
         if (echoPos < delayBuffer_.size()) {
@@ -104,7 +103,6 @@ int16_t EchoConverter::applyEcho(int16_t inputSample, size_t sampleIndex) {
         }
     }
 
-    // Сохраняем текущий сэмпл в буфер для будущих эхо
     if (sampleIndex < delayBuffer_.size()) {
         delayBuffer_[sampleIndex] = inputSample;
     }

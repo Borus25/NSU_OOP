@@ -15,14 +15,12 @@ void MixConverter::process(AudioStream& input, AudioStream& output) {
     int insertSample = secondsToSamples(insertPosition_);
     int sampleIndex = 0;
 
-    // Если дополнительный поток нужно вставить позже - скопируем начало основного потока
     while (input.hasMoreSamples() && sampleIndex < insertSample) {
         int16_t sample = input.readSample();
         output.writeSample(sample);
         sampleIndex++;
     }
 
-    // Теперь микшируем
     while (input.hasMoreSamples()) {
         int16_t mainSample = input.readSample();
         int16_t additionalSample;
@@ -30,7 +28,6 @@ void MixConverter::process(AudioStream& input, AudioStream& output) {
         if (additionalStream_->hasMoreSamples()) {
             additionalSample = additionalStream_->readSample();
         } else {
-            // Если дополнительный поток закончился, используем только основной
             additionalSample = 0;
         }
 

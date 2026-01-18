@@ -30,13 +30,7 @@ bool ConverterCommand::isStreamReference(const std::string& param) {
     if (param.empty() || param[0] != '$') {
         return false;
     }
-
-    try {
-        std::stoi(param.substr(1));
-        return true;
-    } catch (...) {
-        return false;
-    }
+    return isInteger(param.substr(1));
 }
 
 int ConverterCommand::getStreamNumber(const std::string& param) {
@@ -47,26 +41,22 @@ int ConverterCommand::getStreamNumber(const std::string& param) {
 }
 
 bool ConverterCommand::isInteger(const std::string& param) {
-    if (param.empty()) {
-        return false;
-    }
-
+    if (param.empty()) return false;
+    size_t pos = 0;
     try {
-        std::stoi(param);
-        return true;
+        std::stoi(param, &pos);
+        return pos == param.length();
     } catch (...) {
         return false;
     }
 }
 
 bool ConverterCommand::isFloat(const std::string& param) {
-    if (param.empty()) {
-        return false;
-    }
-
+    if (param.empty()) return false;
+    size_t pos = 0;
     try {
-        std::stof(param);
-        return true;
+        std::stof(param, &pos);
+        return pos == param.length();
     } catch (...) {
         return false;
     }

@@ -83,35 +83,17 @@ public:
     bool isConfigured() const;
 
 private:
-    std::vector<std::shared_ptr<WAVFile>> inputFiles_;  // Открытые входные файлы
-    std::shared_ptr<WAVFile> outputFile_;               // Выходной файл
-    ConfigParser configParser_;                         // Парсер конфигурации
-    std::string outputFilePath_;                        // Путь к выходному файлу
-    bool helpMode_;                                     // Флаг режима справки
-    bool isConfigured_;                                 // Флаг настройки
+    std::vector<std::shared_ptr<WAVFile>> inputFiles_;
+    std::shared_ptr<WAVFile> outputFile_;
+    ConfigParser configParser_;
+    std::string outputFilePath_;
+    bool helpMode_;
+    bool isConfigured_;
 
-    /**
-     * Получение аудио потока для входного файла
-     * Если поток уже использовался (для повторного чтения того же файла),
-     * создается новый поток с начала файла
-     * @param fileIndex - индекс входного файла (1-based)
-     * @return аудио поток для чтения
-     * @throws InvalidArgumentException если индекс выходит за границы
-     */
     std::shared_ptr<AudioStream> getInputStream(int fileIndex);
 
-    /**
-     * Применение цепочки конвертеров к входному потоку
-     * @return аудио поток с результатом обработки
-     */
     std::shared_ptr<AudioStream> applyConverters(std::shared_ptr<AudioStream> input);
 
-    /**
-     * Применение одного конвертера
-     * @param converter - конвертер для применения
-     * @param input - входной аудио поток
-     * @param output - выходной аудио поток
-     */
     void applyConverter(const std::shared_ptr<Converter>& converter,
                        AudioStream& input, AudioStream& output);
 };

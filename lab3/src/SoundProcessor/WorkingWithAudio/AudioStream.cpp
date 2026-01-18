@@ -43,17 +43,15 @@ int16_t AudioStream::readSample() {
 
     int16_t sample = 0;
     char buffer[BYTES_PER_SAMPLE];
-
     inputStream_->read(buffer, BYTES_PER_SAMPLE);
 
     if (inputStream_->gcount() != BYTES_PER_SAMPLE) {
         throw AudioStreamException("Failed to read sample from stream");
     }
 
-    // Преобразование из little-endian
     sample = static_cast<int16_t>(
-        (static_cast<uint8_t>(buffer[0])) |
-        (static_cast<uint8_t>(buffer[1]) << 8)
+        static_cast<unsigned char>(buffer[0]) |
+        (static_cast<unsigned char>(buffer[1]) << 8)
     );
 
     currentSampleIndex_++;
@@ -71,7 +69,6 @@ void AudioStream::writeSample(int16_t sample) {
 
     char buffer[BYTES_PER_SAMPLE];
 
-    // Преобразование в little-endian
     buffer[0] = static_cast<char>(sample & 0xFF);
     buffer[1] = static_cast<char>((sample >> 8) & 0xFF);
 
@@ -86,7 +83,7 @@ void AudioStream::writeSample(int16_t sample) {
 
 bool AudioStream::hasMoreSamples() const {
     if (!isInputMode_) {
-        return true; // Для выходного потока всегда можно писать
+        return true;
     }
     return currentSampleIndex_ < totalSamples_;
 }

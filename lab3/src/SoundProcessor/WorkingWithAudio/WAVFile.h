@@ -86,16 +86,16 @@ public:
     void finalizeOutput();
 
 private:
-    std::string filename_;                      // Имя файла
-    std::shared_ptr<std::ifstream> inputFile_;  // Входной файловый поток
-    std::shared_ptr<std::ofstream> outputFile_; // Выходной файловый поток
+    std::string filename_;
+    std::shared_ptr<std::ifstream> inputFile_;
+    std::shared_ptr<std::ofstream> outputFile_;
 
-    WAVHeader header_;                          // Заголовок WAV файла
-    std::shared_ptr<AudioStream> stream_;       // Аудио поток
+    WAVHeader header_;
+    std::shared_ptr<AudioStream> stream_;
 
-    bool isInput_;                              // Флаг входного файла
-    bool isOutput_;                             // Флаг выходного файла
+    bool isInput_;
+    bool isOutput_;
 
-    std::streampos dataStartPosition_;          // Позиция начала аудио данных
+    std::streampos dataStartPosition_;
 };
 

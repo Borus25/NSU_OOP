@@ -41,7 +41,6 @@ const std::vector<ConverterCommand>& ConfigParser::getCommands() const {
 }
 
 void ConfigParser::validateSyntax() const {
-    // Базовая валидация - проверяем, что все команды имеют имена
     for (const auto& cmd : commands_) {
         if (cmd.getName().empty()) {
             throw ConfigParseException("Empty converter name in configuration");

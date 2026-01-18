@@ -19,7 +19,6 @@ void MuteConverter::process(AudioStream& input, AudioStream& output) {
     while (input.hasMoreSamples()) {
         int16_t sample = input.readSample();
 
-        // Если в диапазоне - записываем нуль (тишину), иначе оригинальный сэмпл
         if (sampleIndex >= startSample && sampleIndex < endSample) {
             output.writeSample(0);
         } else {

@@ -18,7 +18,6 @@ void WAVHeader::readHeader(std::istream& input) {
     input.read(reinterpret_cast<char*>(&chunkSize_), 4);
     readString(input, format_, 4);
 
-    // Ищем fmt подфрагмент
     char subchunkId[5] = {0};
     uint32_t subchunkSize = 0;
 
@@ -29,7 +28,6 @@ void WAVHeader::readHeader(std::istream& input) {
         readString(input, subchunkId, 4);
     }
 
-    // Теперь мы нашли fmt подфрагмент
     strcpy(subchunk1Id_, "fmt ");
     input.read(reinterpret_cast<char*>(&subchunk1Size_), 4);
 
@@ -40,12 +38,10 @@ void WAVHeader::readHeader(std::istream& input) {
     input.read(reinterpret_cast<char*>(&blockAlign_), 2);
     input.read(reinterpret_cast<char*>(&bitsPerSample_), 2);
 
-    // Пропускаем оставшуюся часть fmt подфрагмента если он больше 16 байт
     if (subchunk1Size_ > 16) {
         input.ignore(subchunk1Size_ - 16);
     }
 
-    // Ищем data подфрагмент
     readString(input, subchunkId, 4);
     while (std::string(subchunkId) != "data") {
         input.read(reinterpret_cast<char*>(&subchunkSize), 4);

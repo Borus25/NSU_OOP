@@ -14,7 +14,7 @@ else()
     add_compile_options(-g -Wall -Wextra)
 endif()
 
-add_executable(${PROJECT_NAME} src/main.cpp
+add_executable(lab3 src/main.cpp
     src/SoundProcessor/WorkingWithAudio/AudioStream.cpp
     src/SoundProcessor/WorkingWithAudio/WAVFile.cpp
     src/SoundProcessor/WorkingWithAudio/WAVHeader.cpp
@@ -27,6 +27,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
     src/SoundProcessor/utils/ConfigParser.cpp
     src/SoundProcessor/utils/ConverterCommand.cpp
     src/SoundProcessor/SoundProcessor.cpp
+        src/tests/Tests.cpp
 )
 
 
