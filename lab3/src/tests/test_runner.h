@@ -126,18 +126,9 @@ private:
       throw runtime_error(os.str()); \
     } \
   } catch (const exception_type&) { \
-/* Expected */ \
+    /* Expected */ \
   } catch (const std::exception& e) { \
-/* Catch standard exceptions if they match inheritance (optional check) */ \
-/* But strict check requires specific type */ \
-/* If specific type mismatch, rethrow */ \
-/* Logic here depends on if exception_type is abstract. Assuming strict check: */ \
-/* Actually, let's just rethrow to allow catching specifically */ \
-/* BUT, to debug, we can print type name. For now let's keep simple: */ \
-/* If we are here, it's a mismatch if typeid(e) != typeid(exception_type) usually */ \
-/* But C++ catch(Base) works for Derived. */ \
-/* Just swallow if it compiles? No, we need to know if it's WRONG type. */ \
-/* Simple hack: */ \
+    /* other errors */\
   } catch (...) { \
     ostringstream os; \
     os << #expr << " threw wrong exception type, " << __FILE__ << ":" << __LINE__; \
